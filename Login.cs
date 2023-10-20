@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Casina_GruppUppg;
 using System.IO;
 
 public class LoginClass
@@ -35,7 +34,7 @@ public class LoginClass
                 {
                     Console.Clear();
                     Console.WriteLine($"Welcome {Username} You have been logged in!");
-                    Redirect();
+                    LoginClass.Redirect();
                 }
             }
             Console.Clear();
@@ -83,16 +82,18 @@ public class LoginClass
                 Login();
             }
         }
-        static void Redirect()
+    }
+    static void Redirect()
+    {
+        Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'");
+        switch(Console.ReadLine())
         {
-            Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'");
-            switch(Console.ReadLine())
-            {
-                case 1:
-                    RoulleteClass.Roulette();
-            }
+            case 1:
+                RouletteClass.Roullete();
+            case 2:
+                RouletteClass.Roullete();
+
         }
     }
-
 }
 
