@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Casina_GruppUppg
 {
-    internal class Login
+    public class login
     {
     }
 }
