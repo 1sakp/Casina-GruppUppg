@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Casina_GruppUppg;
-RouletteClass.Roullete();
 
+LoginClass.Login();
+RouletteClass.Roullete();
 //LoginClass.Login();
 
-//login();
 
