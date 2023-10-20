@@ -47,13 +47,13 @@ public class RouletteClass
         WriteLine("Spinning roulette table...");
         Thread.Sleep(10000);
 
-        int randomNum = Random();
+        int randomNum = Random1();
         
         WriteLine($"{randomNum}");
 
     }
 
-    public static void Random()
+    public static void Random1()
     {
         Random random = new Random();
 
