@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Casina_GruppUppg;
 RouletteClass.Roullete();
 
-LoginClass.Login();
+//LoginClass.Login();
 
 //login();
 
