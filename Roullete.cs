@@ -51,7 +51,6 @@ public class RouletteClass
 
         int randomNum = RandomNum();
         
-        WriteLine($"{randomNum}");
 
     }
 
