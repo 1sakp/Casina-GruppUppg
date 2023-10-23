@@ -18,7 +18,7 @@ public class RouletteClass
 
         if (tecken == "1")
         {
-            WriteLine("Let the fun begin");
+            WriteLine("Let the fun begin!");
             PlayRoulette();
         }
         else if (tecken == "2")
@@ -36,13 +36,12 @@ public class RouletteClass
         int?[] greenNum = { 0 };
         string? color1 = "Black";
         string? color2 = "White";
+        
 
         WriteLine("Your balance is: ");
-        ReadLine();
         WriteLine("How much do you want to bet? ");
-        ReadLine();
         WriteLine("Lastly what do you want to bet on? ");
-        ReadLine();
+        
 
         WriteLine("Spinning roulette table...");
         Thread.Sleep(10000);
