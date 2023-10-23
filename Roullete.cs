@@ -39,9 +39,12 @@ public class RouletteClass
         
 
         WriteLine("Your balance is: ");
+        string balance = ReadLine();
         WriteLine("How much do you want to bet? ");
+        string bet = ReadLine();
         WriteLine("Lastly what do you want to bet on? ");
-        
+        ReadLine();
+
 
         WriteLine("Spinning roulette table...");
         Thread.Sleep(10000);
