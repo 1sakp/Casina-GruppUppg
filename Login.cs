@@ -34,7 +34,7 @@ public class LoginClass
                 {
                     Console.Clear();
                     Console.WriteLine($"Welcome {Username} You have been logged in!");
-                    LoginClass.Redirect();
+                    Redirect();
                 }
             }
             Console.Clear();
@@ -86,13 +86,15 @@ public class LoginClass
     static void Redirect()
     {
         Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'");
-        switch(Console.ReadLine())
+        switch (Console.ReadLine())
         {
-            case 1:
+            case "1":
                 RouletteClass.Roullete();
-            case 2:
+                break;
+            case "2":
                 RouletteClass.Roullete();
-
+                break;
+                
         }
     }
 }
