@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.ComponentModel.Design;
+﻿using Casina_GruppUppg;
+using System;
 
 public class LoginClass
 {
     public static void Login()
     {
+        //fullpath är hur man kommer till filerna
         string fullPath = (System.IO.Directory.GetParent(System.IO.Directory.GetParent(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString()).ToString()).ToString() +"\\Info.txt");
+
+        //Här väljer man om man ska logga in eller registrera sig
         Console.WriteLine("If you already have an account, Please write 'login'! To sign up write 'Sign up'!");
         string choise = Console.ReadLine();
+        
+        //loggar in
         if (choise.ToLower() == "login")
         {
+
+            //Tar in inlogg info och tar bort 'blankspace'
             Console.WriteLine("To log-in please write, Username:");
             string username_actual = Console.ReadLine().Replace(" ", ""); ;
             Console.WriteLine("Pasword:");
             string password_actual = Console.ReadLine().Replace(" ", ""); ;
 
+            //Gör en string array av alla rader d.v.s personer i txt documentet
             string[] users = File.ReadAllLines(fullPath);
 
-            //check users
+            //Se om inlogg infon stämmer mot någon användare
             foreach (string user in users)
             {
                 string[] splittemp = user.Split('!');
@@ -31,6 +34,7 @@ public class LoginClass
 
                 Console.WriteLine(splittemp[0] + splittemp[1]);
 
+                //om infon är korrekt så loggas man in
                 if (Username.ToLower() == username_actual.ToLower() && Passwordword.ToLower() == password_actual.ToLower())
                 {
                     Console.Clear();
@@ -38,59 +42,56 @@ public class LoginClass
                     Redirect();
                 }
             }
+
+            //om infon är fel så kommer man tilbaka till loggin eller registrera sidan
             Console.Clear();
             Console.WriteLine("Wrong useranme or password... press enter to continue...");
             Console.ReadLine();
             Login();
         }
+
+        //om man väljer att registrera blir man redirectad dit
         else if (choise.ToLower() == "sign up")
         {
             reg();
         }
+
+        //om man skriver fel så kommer man tillbaka
         else
         {
             Login();
         }
     }
 
+    //register
     static void reg()
     {
-        //register
+        //fullpath är hur man kommer till filerna
         string fullPath = (System.IO.Directory.GetParent(System.IO.Directory.GetParent(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString()).ToString()).ToString() + "\\Info.txt");
 
-        bool loop = true;
-        while (loop == true)
-        {
-            string choise = null;
-            Console.WriteLine("Do you want to continue to sign up? Y/N");
-            choise = Console.ReadLine();
+        //väljer lösenord och användarnamn
+        Console.WriteLine("Choose a Username:   ");
+        string Username = Console.ReadLine();
+        Console.WriteLine("Choose a Pasword:   ");
+        string Password = Console.ReadLine();
 
-            if (choise.ToLower() == "y")
-            {
-                Console.WriteLine("Choose a Username:   ");
-                string Username = Console.ReadLine();
-                Console.WriteLine("Choose a Pasword:   ");
-                string Password = Console.ReadLine();
+        //Skapar användare i txt filen
+        string apend = Username + "!" + Password + "!" + "1000";
+        string[] lines = { apend }; //gör om infon till en sträng array
+        File.AppendAllLines(fullPath, lines); //lägger in arrayn i filen
 
-                string apend = Username + "!" + Password + "!" + "1000";
-                string[] lines = { apend };
+        Console.Clear();
 
-                File.AppendAllLines(fullPath, lines);
+        //skickar tillbaka
+        Console.WriteLine("You have been registerd!");
+        Login();
 
-                Console.Clear();
-
-                Console.WriteLine("You have been registerd!");
-                Login();
-            }
-            else
-            {
-                Login();
-            }
-        }
+        
     }
     static void Redirect()
+    // Här skriver användaren vilket spel hen vill spela
     {
-        Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'");
+        Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'\nDo you want to play Slots: '3");
         switch (Console.ReadLine())
         {
             case "1":
@@ -99,7 +100,11 @@ public class LoginClass
             case "2":
                 RouletteClass.Roullete();
                 break;
-                
+            case "3":
+                Crapsgame.Main();
+                break;
+
+
         }
     }
 }

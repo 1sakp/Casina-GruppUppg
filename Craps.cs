@@ -10,9 +10,9 @@ namespace Casina_GruppUppg
     using System;
     using static System.Console;
 
-    class CrapsGame
+    public class Crapsgame
     {
-        static void Main()
+        static public void Main()
         {
             Random random = new Random();
             int point = 0;   // Här lagrar vi "point," som används för att avgöra om spelaren vinner på efterföljande kast.

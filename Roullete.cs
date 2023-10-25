@@ -11,7 +11,7 @@ public class RouletteClass
     public static void Roullete()
     {
         WriteLine("Welcome to our special Roulette game! \nHere you play under the house rules and they might differ from what you are used to");
-        WriteLine("Do you want to play?\n 1.Yes 2.No");
+        WriteLine("Do you want to play?\n1.Yes 2.No");
         string tecken = ReadLine();
 
        
