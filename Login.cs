@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel.Design;
 
 public class LoginClass
 {
@@ -42,9 +43,13 @@ public class LoginClass
             Console.ReadLine();
             Login();
         }
-        else if (choise.ToLower() == "sign up");
+        else if (choise.ToLower() == "sign up")
         {
             reg();
+        }
+        else
+        {
+            Login();
         }
     }
 
