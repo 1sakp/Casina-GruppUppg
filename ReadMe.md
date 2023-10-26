@@ -1,14 +1,6 @@
-START
+To play, Just run the program!
 
-Skickar till loggin:
-	Loggar in
-	eller
-	Registrerar:
-		Loggar in
-	Väljer vad man vill spela:
-		Skickas till spelet
-
-Spelet:
-	Ta info om balance från info
-	SPELAR....
-	Lägger tillbaka Balance
+1. Register an Account
+2. Log in
+3. Have Fun!!!!!
+4. Don't loose all your cash!()!
