@@ -36,22 +36,59 @@ public class RouletteClass
         int?[] greenNum = { 0 };
         string? color1 = "Black";
         string? color2 = "White";
+        int balance = 1000;
         
 
-        WriteLine("Your balance is: ");
-        string balance = ReadLine();
-        WriteLine("How much do you want to bet? ");
-        string bet = ReadLine();
-        WriteLine("Lastly what do you want to bet on? ");
-        ReadLine();
+        WriteLine($"Your balance is: {balance}");
+
+        while (true)
+        {
+
+            WriteLine("How much do you want to bet? ");
+            int bet = Convert.ToInt32(ReadLine());
+
+            if (bet > balance)
+            {
+                WriteLine("You cannot bet more than your balance");
+                return;
+            }
+
+            WriteLine("Lastly what do you want to bet on? \n0. Quit \n1. Pick a single number between 0-36 \n2. Pick between Red and Black \n3. Pick between odd or even numbers \n4. Pick between low 0-18 or high 19-36");
+            int choice = Convert.ToInt32(ReadLine());
+
+            if (choice == 0)
+            {
+                WriteLine("Okay goodbye!");
+                return;
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    StraightBet();
+                    break;
+                case 2:
+                    ColorBet();
+                    break;
+                case 3:
+                    OddEvenBet();
+                    break;
+                case 4:
+                    LowHighBet();
+                    break;
+                default:
+                    WriteLine("Error invalid choice");
+                    break;
+            }
 
 
-        WriteLine("Spinning roulette table...");
-        Thread.Sleep(10000);
 
-        int randomNum = RandomNum();
-        
+            WriteLine("Spinning roulette table...");
+            Thread.Sleep(5000);
 
+            int randomNum = RandomNum();
+            WriteLine($"{RandomNum()}");
+        }
     }
 
     public static int RandomNum()
@@ -60,6 +97,41 @@ public class RouletteClass
 
         return random.Next(0, 37);
 
+    }
+
+    public static void StraightBet()
+    {
+        WriteLine("Pick a single number between 0 and 36");
+        int num = Convert.ToInt32(ReadLine());
+
+        if(num == RandomNum())
+        {
+            WriteLine("Congratulations you won!!");
+            balance += bet * 36;
+        }
+        else
+        {
+            WriteLine("Sorry you lost...");
+            balance -= bet; 
+        }
+    }
+
+    public static void ColorBet()
+    {
+        WriteLine("Pick between Red or Black by typing");
+        string color = ReadLine();
+    }
+
+    public static void OddEvenBet()
+    {
+        WriteLine("Pick either even numbers or odd numbers");
+        string OddEven = ReadLine();
+    }
+
+    public static void LowHighBet()
+    {
+        WriteLine("Type low for 0-18 \nType high for 19-36");
+        string HighLow = ReadLine();
     }
 
 
