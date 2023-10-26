@@ -37,7 +37,7 @@ public class RouletteClass
         string? color1 = "Black";
         string? color2 = "White";
         int balance = 1000;
-        
+
 
         WriteLine($"Your balance is: {balance}");
 
