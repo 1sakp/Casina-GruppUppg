@@ -65,7 +65,7 @@ public class RouletteClass
             switch (choice)
             {
                 case 1:
-                    StraightBet();
+                    StraightBet(balance, bet);
                     break;
                 case 2:
                     ColorBet();
@@ -99,7 +99,7 @@ public class RouletteClass
 
     }
 
-    public static void StraightBet()
+    public static void StraightBet(int balance, int bet)
     {
         WriteLine("Pick a single number between 0 and 36");
         int num = Convert.ToInt32(ReadLine());
