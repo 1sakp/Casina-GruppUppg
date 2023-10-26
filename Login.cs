@@ -89,8 +89,8 @@ public class LoginClass
         
     }
     static void Redirect()
-    // Här skriver användaren vilket spel hen vill spela
     {
+        // Här skriver användaren vilket spel hen vill spela
         Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'\nDo you want to play Slots: '3'\nDo you want to play Slots: '3");
         switch (Console.ReadLine())
         {
