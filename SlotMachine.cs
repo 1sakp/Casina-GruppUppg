@@ -72,7 +72,7 @@ namespace Casina_GruppUppg
                 if (wins > 0)
                 {
                     WriteLine("Congratulations! You won!");
-                    //winnings = 20;
+                    //winnings = 20; dkjdfisdjfilsdjf
                     //int newBalanceWin = balance + winnings - bet;
                     //balance = balance + winnings - bet;
                     balance += 100 - bet;
