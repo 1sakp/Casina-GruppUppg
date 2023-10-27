@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Methods.Start();
+Methods.Start();
 
-RouletteClass.Roullete();
+
 
 
