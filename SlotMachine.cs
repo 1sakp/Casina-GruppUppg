@@ -11,7 +11,9 @@ namespace Casina_GruppUppg
     {
         public static void SlotMachine()
         {
-            int balance = 500;
+            int balance = Methods.GetBal();
+            //GetBal() - put in method to read the login user balance
+            // bal - read the balance
             int bet;
             int winnings;
             int numberOfReels = 3;
@@ -30,19 +32,16 @@ namespace Casina_GruppUppg
             {
                 WriteLine("Place your bet: ");
 
-                // Parse string input from user to int
+                //Parse string input from user to int
                 input = ReadLine();
+                while (!int.TryParse(input, out bet))
+                {
+                    WriteLine("Oh no! Something went horribly wrong!");
+                    input = ReadLine();
+                    // forever loop, needs fixing!
+                }
                 int.TryParse(input, out bet);
                 WriteLine($"You bet: {bet}");
-                //try
-                //{
-                //    input = ReadLine();
-                //    Int32.TryParse(input, out bet);
-                //    WriteLine($"You bet: {bet}");
-                //} catch
-                //{
-                //    WriteLine("Oh no! Something went horribly wrong!");
-                //}
 
                 WriteLine("Ready to play? Press enter to spin...");
                 ReadLine();
@@ -77,15 +76,20 @@ namespace Casina_GruppUppg
                 if (wins > 0)
                 {
                     WriteLine("Congratulations! You won!");
-                    winnings = 20;
-                    int newBalanceWin = balance + winnings - bet;
-                    WriteLine($"You won {winnings} and your balance now is {newBalanceWin}");
+                    //winnings = 20;
+                    //int newBalanceWin = balance + winnings - bet;
+                    //balance = balance + winnings - bet;
+                    
+                    //Methods.Deposit(balance + 100);
+                    //WriteLine($"You won 100 and your balance now is {balance}");
+
                 }
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    int newBalanceLost = balance - bet;
-                    WriteLine($"You lost {bet} and your balance now is {newBalanceLost}");
+                    //balance = balance - bet;
+                    //WriteLine($"You lost {bet} and your balance now is {balance}");
+                    //Methods.Deposit(balance + 100);
                 }
 
                 // Send a message to user when he has no balance left and kick him out of the game - not working
@@ -104,16 +108,19 @@ namespace Casina_GruppUppg
                 else
                 {
                     playAgain = false;
+                    balance = new Deposit();
+                    WriteLine($"Welcome back! Your balance is now: {balance}");
+
+                    // go out of game with balance saved
+                    // Deposit()
                 }
-            } while (playAgain == true && balance < 0);
+            } while (playAgain == true && balance > 0);
 
             static int WinInSomeCases(string[] result)
             {
                 string[][] winningCombinations = {
                 new string[] { "!", "!", "!" },
-                //new string[] { "£", "£", "£" },
                 new string[] { "$", "$", "$" },
-                //new string[] { "%", "%", "%" },
                 new string[] { "&", "&", "&" },
             };
                 // doesn't read the winning here, fix or take out of the function
