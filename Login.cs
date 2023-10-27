@@ -14,8 +14,7 @@ public static class LoginClass
         //loggar in
         if (choise.ToLower() == "login")
         {
-
-            //Tar in inlogg info och tar bort 'blankspace'
+            //tar in login info
             Console.WriteLine("To log-in please write, Username:");
             string username_actual = Console.ReadLine().Replace(" ", ""); ;
             Console.WriteLine("Pasword:");
@@ -105,7 +104,7 @@ public static class LoginClass
         }
 
         // Här skriver användaren vilket spel hen vill spela
-        Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Slots: '2'\nDo you want to play Slots: '3'\nDo you want to play Slots: '3");
+        Console.WriteLine("Welcome!!! Chose what you want to do!:\nDo you want to play Roulette: '1'\nDo you want to play Craps: '2'\nDo you want to play Slots: '3'");
         switch (Console.ReadLine())
         {
             case "1":
@@ -114,13 +113,9 @@ public static class LoginClass
                 break;
             case "2":
                 Console.Clear();
-                RouletteClass.Roullete();
-                break;
-            case "3":
-                Console.Clear();
                 Crapsgame.Main();
                 break;
-            case "4":
+            case "3":
                 Console.Clear();
                 SlotMachineClass.SlotMachine();
                 break;
