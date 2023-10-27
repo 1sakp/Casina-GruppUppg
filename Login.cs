@@ -101,7 +101,7 @@ public static class LoginClass
         //om spelaren har 0 pengar då får hen lägga till mer
         if (Methods.GetBal() == 0)
         {
-            Methods.Deposit();
+            Methods.NoCash();
         }
 
         // Här skriver användaren vilket spel hen vill spela
