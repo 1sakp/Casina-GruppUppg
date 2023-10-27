@@ -123,7 +123,7 @@ public class Methods
                 File.WriteAllLines(FullPath(), users); //Owerwrite hela filen utan den inloggade
 
                 //lägger tillbaka den nuvarande användaren fast i slutet i stället
-                string apend = Username + "!" + Password + "!" + NewBalance + "!out";
+                string apend = Username + "!" + Password + "!" + NewBalance + "!in";
                 string[] lines = { apend }; //gör om infon till en sträng array
                 File.AppendAllLines(FullPath(), lines); //lägger till den inloggade
                 break;
