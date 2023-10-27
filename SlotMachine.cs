@@ -12,17 +12,13 @@ namespace Casina_GruppUppg
         public static void SlotMachine()
         {
             int balance = Methods.GetBal();
-            //GetBal() - put in method to read the login user balance
-            // bal - read the balance
             int bet;
-            int winnings;
             int numberOfReels = 3;
 
             bool playAgain;
 
             string? input;
             string[] result = new string[numberOfReels];
-            // symbols - add more later?
             string[] symbols = { "!", "$", "&" };
             Random rand = new();
 
@@ -79,25 +75,18 @@ namespace Casina_GruppUppg
                     //winnings = 20;
                     //int newBalanceWin = balance + winnings - bet;
                     //balance = balance + winnings - bet;
-                    
-                    //Methods.Deposit(balance + 100);
-                    //WriteLine($"You won 100 and your balance now is {balance}");
+                    balance += 100 - bet;
+                    Methods.Deposit(balance);
+                    WriteLine($"You won 100 and your balance now is {balance}");
 
                 }
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    //balance = balance - bet;
-                    //WriteLine($"You lost {bet} and your balance now is {balance}");
-                    //Methods.Deposit(balance + 100);
+                    balance -= 50 - bet;
+                    Methods.Deposit(balance);
+                    WriteLine($"You lost 50 and your balance now is {balance}");
                 }
-
-                // Send a message to user when he has no balance left and kick him out of the game - not working
-                //if (balance <= 0)
-                //{
-                //    WriteLine("You are a pennyless chap, get out!");
-                //    return;
-                //}
 
                 WriteLine("Do you want to play again? y / n");
                 string? userInput = ReadLine();
@@ -108,11 +97,7 @@ namespace Casina_GruppUppg
                 else
                 {
                     playAgain = false;
-                    balance = new Deposit();
-                    WriteLine($"Welcome back! Your balance is now: {balance}");
-
-                    // go out of game with balance saved
-                    // Deposit()
+                    // go back to main menu to chose another game or quit
                 }
             } while (playAgain == true && balance > 0);
 
