@@ -27,14 +27,11 @@ namespace Casina_GruppUppg
             do
             {
                 WriteLine("Place your bet: ");
-
-                //Parse string input from user to int
-                input = ReadLine();
+                input = ReadLine(); //Parse string input from user to int
                 while (!int.TryParse(input, out bet))
                 {
-                    WriteLine("Oh no! Something went horribly wrong!");
+                    WriteLine("Oh no! You need to write a number: ");
                     input = ReadLine();
-                    // forever loop, needs fixing!
                 }
                 int.TryParse(input, out bet);
                 WriteLine($"You bet: {bet}");
@@ -63,8 +60,7 @@ namespace Casina_GruppUppg
                 }
 
                 WriteLine("The wheel is spinning...");
-                // sleep for 2 sek to build suspension
-                //Thread.Sleep(2000);
+                Thread.Sleep(2000); // sleep for 2 sek to build suspension
                 WriteLine(string.Join(" | ", result));
 
                 int wins = WinInSomeCases(result);
@@ -72,20 +68,17 @@ namespace Casina_GruppUppg
                 if (wins > 0)
                 {
                     WriteLine("Congratulations! You won!");
-                    //winnings = 20; dkjdfisdjfilsdjf
-                    //int newBalanceWin = balance + winnings - bet;
-                    //balance = balance + winnings - bet;
-                    balance += 100 - bet;
+                    balance += (bet * 2);
                     Methods.Deposit(balance);
-                    WriteLine($"You won 100 and your balance now is {balance}");
+                    WriteLine($"You won {bet * 2} and your balance now is {balance}");
 
                 }
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    balance -= 50 - bet;
+                    balance -= (bet * 2);
                     Methods.Deposit(balance);
-                    WriteLine($"You lost 50 and your balance now is {balance}");
+                    WriteLine($"You lost {bet * 2} and your balance now is {balance}");
                 }
 
                 WriteLine("Do you want to play again? y / n");
