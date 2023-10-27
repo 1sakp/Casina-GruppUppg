@@ -14,6 +14,7 @@ namespace Casina_GruppUppg
     {
         static public void Main()
         {
+            int balance = Methods.GetBal();
             Random random = new Random();
             int point = 0;   // Här lagrar vi "point," som används för att avgöra om spelaren vinner på efterföljande kast.
             bool hasWon = false;  // En variabel för att hålla reda på om spelaren har vunnit.
@@ -22,6 +23,9 @@ namespace Casina_GruppUppg
 
             while (true)  // Huvudspelloopen som gör att spelet fortsätter tills spelaren väljer att sluta.
             {
+                balance = Methods.GetBal();
+                WriteLine("Du har "+balance);
+
                 WriteLine("Tryck på Enter för att kasta tärningarna...");
                 ReadLine();
 
@@ -37,11 +41,17 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har vunnit!");
                         hasWon = true;  // Om summan är 7 eller 11, har spelaren vunnit.
+                        Methods.Deposit(balance + 100); // Vinsten läggs till
+                        WriteLine("Du har " + balance);
+
                     }
                     else if (sum == 2 || sum == 3 || sum == 12)
                     {
                         WriteLine("Du har förlorat!");
                         hasWon = false;  // Om summan är 2, 3 eller 12, har spelaren förlorat.
+                        Methods.Deposit(balance - 50); // Förlusten dras av 
+                        WriteLine("Du har " + balance);
+
                     }
                     else
                     {
@@ -55,11 +65,18 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har vunnit!");
                         hasWon = true;  // Om summan är samma som "point," har spelaren vunnit.
+                        Methods.Deposit(balance + 100); // Vinsten läggs till
+                        WriteLine("Du har " + balance);
+                     
+
                     }
                     else if (sum == 7)
                     {
                         WriteLine("Du har förlorat!");
                         hasWon = false;  // Om summan är 7, har spelaren förlorat.
+                        Methods.Deposit(balance - 50); // Förlusten dras av
+                        WriteLine("Du har " + balance);
+
                     }
                 }
 
@@ -79,6 +96,7 @@ namespace Casina_GruppUppg
                 {
                     WriteLine("Försök igen. Tryck på Enter för att kasta tärningarna...");
                     ReadLine();
+                    Methods.Deposit(balance - 50);
                 }
             }
         }
