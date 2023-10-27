@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -36,13 +37,11 @@ public class RouletteClass
         int?[] greenNum = { 0 };
         string? color1 = "Black";
         string? color2 = "White";
-        int balance = 1000;
-
-
-        WriteLine($"Your balance is: {balance}");
+        int balance = Methods.GetBal();
 
         while (true)
         {
+            WriteLine($"Your balance is: {balance}");
 
             WriteLine("How much do you want to bet? ");
             int bet = Convert.ToInt32(ReadLine());
@@ -68,26 +67,19 @@ public class RouletteClass
                     StraightBet(balance, bet);
                     break;
                 case 2:
-                    ColorBet();
+                    ColorBet(balance, bet);
                     break;
                 case 3:
-                    OddEvenBet();
+                    OddEvenBet(balance, bet);
                     break;
                 case 4:
-                    LowHighBet();
+                    LowHighBet(balance, bet);
                     break;
                 default:
                     WriteLine("Error invalid choice");
                     break;
             }
 
-
-
-            WriteLine("Spinning roulette table...");
-            Thread.Sleep(5000);
-
-            int randomNum = RandomNum();
-            WriteLine($"{RandomNum()}");
         }
     }
 
@@ -104,10 +96,17 @@ public class RouletteClass
         WriteLine("Pick a single number between 0 and 36");
         int num = Convert.ToInt32(ReadLine());
 
-        if(num == RandomNum())
+        WriteLine("Spinning roulette table...");
+        Thread.Sleep(1000);
+
+        int randomNum = RandomNum();
+        WriteLine($"{RandomNum()}");
+
+        if (num == randomNum)
         {
             WriteLine("Congratulations you won!!");
             balance += bet * 36;
+            Methods.Deposit(balance);
         }
         else
         {
@@ -116,22 +115,92 @@ public class RouletteClass
         }
     }
 
-    public static void ColorBet()
+    public static void ColorBet(int balance, int bet)
     {
         WriteLine("Pick between Red or Black by typing");
-        string color = ReadLine();
+        string color = ReadLine().ToLower();
+
+        WriteLine("Spinning roulette table...");
+        Thread.Sleep(1000);
+
+        string winColor = GetRandomColor(); 
+        Console.WriteLine($"{winColor}");
+
+        if (color == winColor)
+        {
+            WriteLine("Congratulations You won!!");
+            balance += 2 * bet;
+        }
+        else
+        {
+            WriteLine($"Sorry you lost");
+            balance -= bet;
+            
+        }
     }
 
-    public static void OddEvenBet()
+    private static string GetRandomColor()
+    {
+        Random random = new Random();
+        return (random.Next(2) == 0) ? "red" : "black"; 
+    }
+
+    public static void OddEvenBet(int balance, int bet)
     {
         WriteLine("Pick either even numbers or odd numbers");
-        string OddEven = ReadLine();
+        string oddEven = ReadLine().ToLower();
+
+        WriteLine("Spinning roulette table...");
+        Thread.Sleep(1000);
+
+        int randomNum = RandomNum();
+        WriteLine($"{RandomNum()}");
+
+        int winNum = RandomNum();
+
+        bool isWinningOddEven = (winNum % 2 == 1 && oddEven == "odd") ||
+                                (winNum % 2 == 0 && oddEven == "even");
+
+        if (isWinningOddEven)
+        {
+            WriteLine("Congratulations You won!!");
+            balance += bet * 2;
+        }
+        else
+        {
+            WriteLine("Sorry you lost...");
+            balance -= bet;
+        }
     }
 
-    public static void LowHighBet()
+    public static void LowHighBet(int balance, int bet)
     {
         WriteLine("Type low for 0-18 \nType high for 19-36");
-        string HighLow = ReadLine();
+        string range = ReadLine().ToLower();
+
+        WriteLine("Spinning roulette table...");
+        Thread.Sleep(1000);
+
+        int randomNum = RandomNum();
+        WriteLine($"{RandomNum()}");
+
+        int winNum = RandomNum();
+
+        WriteLine($"The winning number is: {randomNum}");
+
+        bool isWinningRange = (winNum >= 0 && winNum <= 18 && range == "low") ||
+                              (winNum >= 19 && winNum <= 36 && range == "high");
+
+        if (isWinningRange)
+        {
+            WriteLine("Congratulations you won!!");
+            balance += bet * 2;
+        }
+        else
+        {
+            WriteLine("Sorry you lost...");
+            balance -= bet;
+        }
     }
 
 

@@ -69,7 +69,39 @@ public class Methods
         }
         return bal;
     }
-    public static void Deposit()
+    public static void NoCash()
+    {
+        string[] users = File.ReadAllLines(FullPath());
+
+        //Se vilken användare som är inloggad
+        foreach (string user in users)
+        {
+            string[] splittemp = user.Split('!');
+            string Logged = splittemp[3];
+
+            while (GetBal() == 0)
+            {
+                Console.WriteLine("You are out of cash... deposit up to 1000!");
+                string Balance = Console.ReadLine();
+
+                //https://stackoverflow.com/questions/19592084/why-do-all-tryparse-overloads-have-an-out-parameter
+                int NewBalance;
+                bool isint = int.TryParse(Balance, out NewBalance);
+
+                if (isint == true)
+                {
+                    if (Logged == "in")
+                    {
+                        Deposit(NewBalance);
+
+                        LoginClass.Redirect();
+                    }
+                }
+            }
+        }
+        LoginClass.Login();
+    }
+    public static void Deposit(int NewBalance)
     {
         string[] users = File.ReadAllLines(FullPath());
 
@@ -81,36 +113,22 @@ public class Methods
             string Password = splittemp[1];
             string Logged = splittemp[3];
 
-            while (GetBal() == 0)
+            //om infon är korrekt så loggas man in
+            if (Logged == "in")
             {
-                Console.WriteLine("You are out of cash... deposit up to 1000!");
-                string Balance = Console.ReadLine();
+                //https://stackoverflow.com/questions/10753160/how-exactly-to-use-array-where
+                //hittar var allt i array som inte är nuvarande användare och gör dem till en ny array, på så sätt
+                //tar dem bort nuvarande användaren.
+                users = users.Where(i => i != user).ToArray();
+                File.WriteAllLines(FullPath(), users); //Owerwrite hela filen utan den inloggade
 
-                //https://stackoverflow.com/questions/19592084/why-do-all-tryparse-overloads-have-an-out-parameter
-                int i;
-                bool isint = int.TryParse(Balance, out i);
-
-                if (isint == true)
-                {
-                    if (Logged == "in")
-                    {
-                        //https://stackoverflow.com/questions/10753160/how-exactly-to-use-array-where
-                        //hittar var allt i array som inte är nuvarande användare och gör dem till en ny array, på så sätt
-                        //tar dem bort nuvarande användaren.
-                        users = users.Where(i => i != user).ToArray();
-                        File.WriteAllLines(FullPath(), users); //Owerwrite hela filen utan den inloggade
-
-                        //lägger tillbaka den nuvarande användaren fast i slutet i stället
-                        string apend = Username + "!" + Password + "!" + Balance + "!in";
-                        string[] lines = { apend }; //gör om infon till en sträng array
-                        File.AppendAllLines(FullPath(), lines); //lägger till den inloggade
-
-                        LoginClass.Redirect();
-                    }
-                }
+                //lägger tillbaka den nuvarande användaren fast i slutet i stället
+                string apend = Username + "!" + Password + "!" + NewBalance + "!in";
+                string[] lines = { apend }; //gör om infon till en sträng array
+                File.AppendAllLines(FullPath(), lines); //lägger till den inloggade
+                break;
             }
         }
-        LoginClass.Redirect();
     }
 }
 
