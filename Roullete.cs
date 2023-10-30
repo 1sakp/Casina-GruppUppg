@@ -63,7 +63,10 @@ public class RouletteClass
                     LowHighBet(Methods.GetBal(), bet);
                     break;
                 default:
-                    WriteLine("Error invalid choice");
+                    WriteLine("Error invalid choice. Press enter to continue");
+                    ReadLine();
+                    Clear();
+                    Roullete();
                     break;
             }
 
@@ -79,56 +82,96 @@ public class RouletteClass
 
     public static void StraightBet(int balance, int bet)
     {
-        WriteLine("Pick a single number between 0 and 36");
-        int num = Convert.ToInt32(ReadLine());
-
-        WriteLine("Spinning roulette table...");
-        Thread.Sleep(1000);
-
-        int randomNum = RandomNum();
-        WriteLine($"{randomNum}");
-
-        if (num == randomNum)
+        try
         {
-            WriteLine("Congratulations you won!!");
-            balance += bet * 36;
-            Methods.Deposit(balance);
-        }
-        else
-        {
-            WriteLine("Sorry you lost...");
-            balance -= bet;
-            Methods.Deposit(balance);
+            WriteLine("Pick a single number between 0 and 36");
+            int num = Convert.ToInt32(ReadLine());
+
+            if (num < 0 || num > 36)
+            {
+                WriteLine("Invalid numbers, press enter to try again");
+                ReadLine();
+                StraightBet(balance, bet);
+            }
+            
+
+            WriteLine("Spinning roulette table...");
+            Thread.Sleep(1000);
+
+            int randomNum = RandomNum();
+            WriteLine($"{randomNum}");
+
+            if (num == randomNum)
+            {
+                WriteLine("Congratulations you won!!");
+                balance += bet * 36;
+                Methods.Deposit(balance);
+            }
+            else
+            {
+                WriteLine("Sorry you lost...");
+                balance -= bet;
+                Methods.Deposit(balance);
+            }
+
+            playOn();
         }
 
-        playOn();
+        catch 
+        {
+            WriteLine("Invalid input. Please enter a valid number. \nPress enter to try again");
+            ReadLine();
+            StraightBet(balance, bet);
+        }
+        
+
     }
 
     public static void ColorBet(int balance, int bet)
     {
-        WriteLine("Pick between Red or Black by typing");
-        string color = ReadLine().ToLower();
-
-        WriteLine("Spinning roulette table...");
-        Thread.Sleep(1000);
-
-        string winColor = GetRandomColor(); 
-        WriteLine($"{winColor}");
-
-        if (color == winColor)
+        try
         {
-            WriteLine("Congratulations you won!!");
-            balance += bet * 2;
-            Methods.Deposit(balance);
-        }
-        else
-        {
-            WriteLine("Sorry you lost");
-            balance -= bet;
-            Methods.Deposit(balance);
+            WriteLine("Pick between Red or Black by typing");
+            string color = ReadLine().ToLower();
+
+            if (color != "black" && color != "red")
+            {
+                throw new ArgumentException("Invalid color. Please pick either Black or Red.");
+            }
+
+            WriteLine("Spinning roulette table...");
+            Thread.Sleep(1000);
+
+            string winColor = GetRandomColor();
+            WriteLine($"{winColor}");
+
+            if (color == winColor)
+            {
+                WriteLine("Congratulations you won!!");
+                balance += bet * 2;
+                Methods.Deposit(balance);
+            }
+            else
+            {
+                WriteLine("Sorry you lost");
+                balance -= bet;
+                Methods.Deposit(balance);
+            }
+
+            playOn();
         }
 
-        playOn();
+        catch (ArgumentException ex)
+        {
+            WriteLine($"Error: {ex.Message}");
+     
+        }
+        catch (Exception ex)
+        {
+            WriteLine($"An unexpected error occurred: {ex.Message}");
+            
+        }
+        
     }
 
     private static string GetRandomColor()
