@@ -32,7 +32,7 @@ namespace Casina_GruppUppg
 
                 WriteLine($"Du kastade {dice1} och {dice2} - Summa: {sum}");
 
-                if (point == 0)
+                if (point == 0)// Första tärningskastet
                 {
                     if (sum == 7 || sum == 11)
                     {
@@ -54,11 +54,11 @@ namespace Casina_GruppUppg
                     }
                     else
                     {
-                        point = sum;  // Om summan inte är 7, 11, 2 eller 3, sätter vi "point" till summan.
+                        point = sum;  // Om summan inte är 7, 11, 2, 3 eller 12 sätter vi "point" till summan.
                         WriteLine($"Poäng satt till {point}"); 
                     }
                 }
-                else
+                else // andra tärningskastet
                 {
                     if (sum == point)
                     {
@@ -76,9 +76,9 @@ namespace Casina_GruppUppg
                         balance -= 50;
                         Methods.Deposit(balance); // Förlusten dras av
                         WriteLine($"Du har {balance}");
-
+                        
                     }
-                }
+                } 
 
                 if (hasWon)
                 {
