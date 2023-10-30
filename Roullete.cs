@@ -24,7 +24,7 @@ public class RouletteClass
             WriteLine("How much do you want to bet? ");
             int bet = Convert.ToInt32(ReadLine());
 
-            while (bet > balance || bet == 0)
+            while (bet > balance || bet == 0 || bet < 0)
             {
                 if (bet > balance)
                 {
