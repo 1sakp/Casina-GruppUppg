@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Casina_GruppUppg
-{ 
+{
     public class Crapsgame
     {
         static public void Main()
@@ -83,22 +83,25 @@ namespace Casina_GruppUppg
                 if (hasWon)
                 {
                     WriteLine("Grattis! Vill du spela igen? (Ja/Nej)");
-                    string playAgain = ReadLine();
+                    string playAgain = ReadLine().ToLower();// Konvertera inmatningen till små bokstäver.
+
 
                     if (playAgain.ToLower() == "ja")
                     {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
                         Main();
                         break;  // Om spelaren har vunnit och inte vill spela igen, bryter vi loopen.
                     }
-                    else if (playAgain.ToLower() != "nej")
+                    else if (playAgain.ToLower() == "nej")
                     {
-                        WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        WriteLine("Tack för att du spelade. Spelet avslutas.");
+                        LoginClass.Redirect();
                         break;
                     }
 
                     else
                     {
                         WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        Main();
                         break;
                     }
                 }
@@ -111,27 +114,34 @@ namespace Casina_GruppUppg
 
                     WriteLine("otur! Vill du spela igen? (Ja/Nej)");
                     string playAgain = ReadLine();
-                    Console.Clear();
-                    if (playAgain.ToLower() != "ja" || playAgain.ToLower() != "nej")
-                    {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
-                        {
-                            WriteLine("Ogiltig inmatning. Spelet avslutas.");
-                            break;
-                        }
+
+
+                    if (playAgain.ToLower() == "ja")
+                    {
+                        point = 0;
+                        hasWon = false;
+                        Console.Clear();
+                        Main();
+
                     }
                     if (playAgain.ToLower() == "nej")
-                        break;
                     {
-                        point = 0;  // Återställer "point" och "hasWon" om spelaren vill spela igen.
-                        hasWon = false;
+                        WriteLine("Tack för att du spelade!");
+                        LoginClass.Redirect();
+                        break;
+                    }
+
+
+
+                    else
+
+                    {
+                        WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        break;
                     }
                 }
-                WriteLine("Spelet är över. Tack för att du spelade!");
             }
-            
+
         }
-    }
-    internal class Craps
-    {
     }
 }
