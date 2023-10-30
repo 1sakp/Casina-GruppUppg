@@ -31,7 +31,7 @@ namespace Casina_GruppUppg
                 int sum = dice1 + dice2;  // Beräknar summan av de två tärningskasten.
 
                 WriteLine($"Du kastade {dice1} och {dice2} - Summa: {sum}");
-                
+
                 if (point == 0)
                 {
                     if (sum == 7 || sum == 11)
@@ -47,7 +47,7 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har förlorat!");
                         hasWon = false;  // Om summan är 2, 3 eller 12, har spelaren förlorat.
-                        balance -= 50; 
+                        balance -= 50;
                         Methods.Deposit(balance); // Förlusten dras av 
                         WriteLine($"Du har {balance}");
 
@@ -55,7 +55,7 @@ namespace Casina_GruppUppg
                     else
                     {
                         point = sum;  // Om summan inte är 7, 11, 2 eller 3, sätter vi "point" till summan.
-                        WriteLine($"Poäng satt till {point}");;
+                        WriteLine($"Poäng satt till {point}"); ;
                     }
                 }
                 else
@@ -84,12 +84,22 @@ namespace Casina_GruppUppg
                 {
                     WriteLine("Grattis! Vill du spela igen? (Ja/Nej)");
                     string playAgain = ReadLine();
-                    if (playAgain.ToLower() != "ja") // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
+
+                    if (playAgain.ToLower() == "ja")
+                    {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
+                        Main();
                         break;  // Om spelaren har vunnit och inte vill spela igen, bryter vi loopen.
+                    }
+                    else if (playAgain.ToLower() != "nej")
+                    {
+                        WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        break;
+                    }
+
                     else
                     {
-                        point = 0;  // Återställer "point" och "hasWon" om spelaren vill spela igen.
-                        hasWon = false;
+                        WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        break;
                     }
                 }
                 else
@@ -102,16 +112,23 @@ namespace Casina_GruppUppg
                     WriteLine("otur! Vill du spela igen? (Ja/Nej)");
                     string playAgain = ReadLine();
                     Console.Clear();
-                    if (playAgain.ToLower() != "ja") {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
-                        Main();  // Om spelaren har vunnit och inte vill spela igen, bryter vi loopen.
-                        point = 0;
-                    } else
+                    if (playAgain.ToLower() != "ja" || playAgain.ToLower() != "nej")
+                    {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
+                        {
+                            WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                            break;
+                        }
+                    }
+                    if (playAgain.ToLower() == "nej")
+                        break;
                     {
                         point = 0;  // Återställer "point" och "hasWon" om spelaren vill spela igen.
                         hasWon = false;
                     }
                 }
+                WriteLine("Spelet är över. Tack för att du spelade!");
             }
+            
         }
     }
     internal class Craps
