@@ -55,7 +55,7 @@ namespace Casina_GruppUppg
                     else
                     {
                         point = sum;  // Om summan inte är 7, 11, 2 eller 3, sätter vi "point" till summan.
-                        WriteLine($"Poäng satt till {point}"); ;
+                        WriteLine($"Poäng satt till {point}"); 
                     }
                 }
                 else
@@ -94,8 +94,7 @@ namespace Casina_GruppUppg
                     else if (playAgain.ToLower() == "nej")
                     {
                         WriteLine("Tack för att du spelade. Spelet avslutas.");
-                        LoginClass.Redirect();
-                        Console.Clear();
+                       
                         break;
                     }
 
