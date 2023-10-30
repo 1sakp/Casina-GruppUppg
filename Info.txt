@@ -1,11 +1,9 @@
 Isak!Palssn!5!out
 iska!pal!800!out
-una!12345!1000!out
 adam!Adam!600!out
-dd!dd!-300!in
+dd!dd!-300!out
 dd!dd!200!out
 iska!pal!1000!out
-una!12345!1000!out
 dd!dd!300!out
-una!12345!1000!out
-adam!adam!1000!in
+adam!adam!1000!out
+una!12345!90!in

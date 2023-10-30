@@ -26,13 +26,28 @@ namespace Casina_GruppUppg
 
             do
             {
-                WriteLine($"You have: {balance} kr in balance");
+                WriteLine($"You have: {balance} kr in balance\n");
                 WriteLine("Place your bet: ");
                 input = ReadLine();
-                while (!int.TryParse(input, out bet)) // if the user inputs something that cannot be parsed to an int
+
+                // Check if user did not put int for input || is overbetting his balance || betting less than 0 or 0
+                while (!int.TryParse(input, out bet) || bet > balance || bet < 0 || bet == 0)
                 {
-                    WriteLine("Oh no! You need to write a number: "); // make the user input an int
-                    input = ReadLine();
+                    if (!int.TryParse(input, out bet))
+                    {
+                        WriteLine("Oh no! You need to write a number: ");
+                        input = ReadLine();
+                    }
+                    else if (bet > balance)
+                    {
+                        WriteLine("Oh no! You don't have that kind of money, enter a bet under your balance: ");
+                        input = ReadLine();
+                    }
+                    else
+                    {
+                        WriteLine("Oh no! You cannot bet below 0, bet over 0 please: ");
+                        input = ReadLine();
+                    }
                 }
                 int.TryParse(input, out bet); //Parse string input from user to int
                 WriteLine($"You bet: {bet}");
@@ -79,19 +94,19 @@ namespace Casina_GruppUppg
                     WriteLine("Oh no! You lost!");
                     balance -= bet;
                     Methods.Deposit(balance);
-                    WriteLine($"You lost {bet} and your balance now is {balance}"); // balance - bet = the new balance
+                    WriteLine($"You lost {bet} and your balance now is {balance} \n"); // balance - bet = the new balance
+
+                    if (balance < 0 || balance == 0)
+                    {
+                        Methods.NoCash(); // call the NoCash() method when user has no more cash to deposit more money
+                    }
                 }
 
-                WriteLine("Do you want to play again? y / n\n");
+                WriteLine("Do you want to play again? y / n");
                 string? userInput = ReadLine();
                 if (userInput == "Y" || userInput == "y")
                 {
                     playAgain = true; // the user plays again
-                }
-                else if(balance < 0)
-                {
-                    Methods.Deposit(balance); // call the deposit method when user has no more cash to deposit more money
-                    playAgain = true;
                 }
                 else
                 {
@@ -100,32 +115,32 @@ namespace Casina_GruppUppg
                     return;
                 }
             } while (playAgain == true && balance > 0); // play again and user needs also have some balance over 0
+        }
 
-            static bool WinInSomeCases(string[] result)
-            {
-                string[][] winningCombinations = {
+        public static bool WinInSomeCases(string[] result)
+        {
+            string[][] winningCombinations = {
                 new string[] { "!", "!", "!" }, // winning combo = ! | ! | !
                 new string[] { "$", "$", "$" }, // winning combo = $ | $ | $
                 new string[] { "&", "&", "&" }, // winning combo = & | & | &
             };
-                foreach (var combination in winningCombinations)
+            foreach (var combination in winningCombinations)
+            {
+                bool isWinningCombination = true;
+                for (int i = 0; i < result.Length; i++)
                 {
-                    bool isWinningCombination = true;
-                    for (int i = 0; i < result.Length; i++)
+                    if (result[i] != combination[0])
                     {
-                        if (result[i] != combination[0])
-                        {
-                            isWinningCombination = false; // there wasn't a winning combo
-                            break;
-                        }
-                    }
-                    if (isWinningCombination)
-                    {
-                        return true; // there was a winning combo
+                        isWinningCombination = false; // there wasn't a winning combo
+                        break;
                     }
                 }
-                return false; // no winning combo
+                if (isWinningCombination)
+                {
+                    return true; // there was a winning combo
+                }
             }
+            return false; // no winning combo
         }
     }
 }
