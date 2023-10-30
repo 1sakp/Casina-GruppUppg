@@ -7,6 +7,8 @@ public static class LoginClass
 {
     public static void Login()
     {
+        Console.Clear();
+
         //Här väljer man om man ska logga in eller registrera sig
         Console.WriteLine("If you already have an account, Please write 'login'! To sign up write 'Sign up'!");
         string choise = Console.ReadLine();
@@ -97,6 +99,8 @@ public static class LoginClass
     }
     public static void Redirect()
     {
+        Console.Clear();
+
         //om spelaren har 0 pengar då får hen lägga till mer
         if (Methods.GetBal() == 0)
         {
@@ -119,6 +123,10 @@ public static class LoginClass
                 Console.Clear();
                 SlotMachineClass.SlotMachine();
                 break;
+            default:
+                Redirect();
+                break;
+
         }
     }
 }
