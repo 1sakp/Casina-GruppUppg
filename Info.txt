@@ -3,4 +3,5 @@ iska!pal!800!out
 una!12345!1000!out
 adam!Adam!1000!out
 una!12345!940!out
-dd!dd!300!in
+adam!Adam!350!out
+dd!dd!200!in

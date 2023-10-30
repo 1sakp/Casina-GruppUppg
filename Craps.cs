@@ -95,6 +95,7 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Tack för att du spelade. Spelet avslutas.");
                         LoginClass.Redirect();
+                        Console.Clear();
                         break;
                     }
 
@@ -130,15 +131,13 @@ namespace Casina_GruppUppg
                         LoginClass.Redirect();
                         break;
                     }
-
-
-
                     else
-
                     {
                         WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        Main();
                         break;
                     }
+
                 }
             }
 
