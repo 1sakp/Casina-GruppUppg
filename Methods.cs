@@ -24,16 +24,17 @@ public class Methods
             //om infon är korrekt så loggas man in
             if (Logged == "in")
             {
-                //https://stackoverflow.com/questions/10753160/how-exactly-to-use-array-where
-                //hittar var allt i array som inte är nuvarande användare och gör dem till en ny array, på så sätt
-                //tar dem bort nuvarande användaren.
-                users = users.Where(i => i != user).ToArray();
-                File.WriteAllLines(FullPath(), users); //Owerwrite hela filen utan den inloggade
+                // Create a new list to store modified users
+                var updatedUsers = users.ToList();
 
-                //lägger tillbaka den nuvarande användaren fast i slutet i stället
-                string apend = Username + "!" + Password + "!" + Balance + "!out";
-                string[] lines = { apend }; //gör om infon till en sträng array
-                File.AppendAllLines(FullPath(), lines); //lägger till den inloggade
+                // Update the status to "out"
+                string updatedUser = user.Replace("!in", "!out");
+
+                // Replace the old user entry with the updated one
+                updatedUsers[Array.IndexOf(users, user)] = updatedUser;
+
+                // Write the updated users back to the file
+                File.WriteAllLines(FullPath(), updatedUsers);
 
                 LoginClass.Login();
             }
