@@ -3,6 +3,4 @@ Isak!Palson!5!out
 iska!pal!800!out
 iska!pal!1000!out
 dd!dd!50!out
-adam!Adam!1100!out
-una!12345!590!out
-Isak!Palsson!-95!in
+una!12345!530!in

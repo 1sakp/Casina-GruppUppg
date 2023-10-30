@@ -90,6 +90,9 @@ namespace Casina_GruppUppg
                 else
                 {
                     playAgain = false; // the user is directed back to main menu to chose another game or quit
+                    Methods.Start(); // Change to Login.Redirect()
+                    //Login.Redirect();
+                    return;
                 }
             } while (playAgain == true && balance > 0); // play again and user needs also have some balance left
 
