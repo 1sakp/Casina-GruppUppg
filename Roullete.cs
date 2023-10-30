@@ -10,12 +10,15 @@ using static System.Console;
 
 public class RouletteClass
 {
+    //Start metod med klass
     public static void Roullete()
     {
         WriteLine("Let the fun begin!!");
 
+        //Balansen hämtas från annan metod
         int balance = Methods.GetBal();
 
+        //Startar en loop för att betta där den skriver ut ens balans samt frågar hur mycket man vill betta
         while (true)
         {
             balance = Methods.GetBal();
@@ -24,7 +27,8 @@ public class RouletteClass
             WriteLine("How much do you want to bet? ");
             int bet = Convert.ToInt32(ReadLine());
 
-            while (bet > balance || bet == 0)
+            //Har en kontroll så man inte kan betta 0, mindre än 0, eller mer än sin balans 
+            while (bet > balance || bet == 0 || bet < 0)
             {
                 if (bet > balance)
                 {
@@ -38,7 +42,8 @@ public class RouletteClass
                 bet = Convert.ToInt32(Console.ReadLine());
             }
 
-
+            //Man har 5 olika val, varav det första är för att lämna och man blir tillbaka skickad till start skärmen
+            //De andra alternativen skickar en till en separat metod där man gör sina bet. Samt en kontroll.
             WriteLine("What do you want to bet on? \n0. Quit \n1. Pick a single number between 0-36 \n2. Pick between Red and Black \n3. Pick between odd or even numbers \n4. Pick between low 0-18 or high 19-36");
             int choice = Convert.ToInt32(ReadLine());
 
@@ -72,14 +77,14 @@ public class RouletteClass
 
         }
     }
-
+    //En metod för att generera ett random nummer som sen kallas i följande metoder för att veta om man vinner eller ej
     public static int RandomNum()
     {
         Random random = new Random();
 
         return random.Next(0, 37);
     }
-
+    //Första metoden för enskilda nummer, en try catch ifall man skriver något utanför 0-36. Samt en uträkning för att vinst alternativt förlust.
     public static void StraightBet(int balance, int bet)
     {
         try
@@ -127,10 +132,8 @@ public class RouletteClass
             WriteLine($"An unexpected error occurred: {ex.Message}");
 
         }
-
-
     }
-
+    //Andra metoden är för färg bet. Ser hyfsat likadant ut som straightbet men har en funktion och en randomizer för vilken färg det är som vinner
     public static void ColorBet(int balance, int bet)
     {
         try
@@ -179,13 +182,14 @@ public class RouletteClass
         }
         
     }
-
+    //Här är metoden som ger en random färg, finns säkert något annat sätt att göra det på men detta verkade som det lättaste. Den kallas sedan i funktionen över
     private static string GetRandomColor()
     {
         Random random = new Random();
         return (random.Next(2) == 0) ? "red" : "black"; 
     }
-
+    //Här är en metod när man vill beta på jämna eller ojämna tal. Fick även här skaffa en funktion för vinnande nummer som räknar ut om det är jämnt eller ojämnt
+    //Denna metoden har också sveriges jobbigaste IF-sats för att få in alla möjliga händelser. Man kan tro att den skulle vara lika lätt som colorbet, men det var den inte
     public static void OddEvenBet(int balance, int bet)
     {
         try
@@ -253,7 +257,8 @@ public class RouletteClass
             WriteLine($"An unexpected error occurred: {ex.Message}");
         }
     }
-
+    //Här är metoden för att beta på höga eller låga nummer där jag kör en funktion som räknar ut vilken "range" det är som vinner
+    //Denna var förvånadsvärt lätt och har också try catch som alla tidigare
     public static void LowHighBet(int balance, int bet)
     {
         try
@@ -303,7 +308,7 @@ public class RouletteClass
 
         }
     }
-
+    //Sist men inte minst ställer jag frågan ifall folk vill spela vidare på roulette eller om de vill välja något av de andra spelen vi erbjuder. Så denna kallas i alla tidigare metoder
     public static void playOn()
     {
         if (Methods.GetBal() == 0)

@@ -76,38 +76,37 @@ public class Methods
         //Se vilken användare som är inloggad
         foreach (string user in users)
         {
+
             string[] splittemp = user.Split('!');
             string Logged = splittemp[3];
+            string bal = splittemp[2];
 
-            while (GetBal() == 0)
+            if (Logged == "in")
             {
-                Console.WriteLine("You are out of cash... deposit up to 1000!");
+                Console.WriteLine("You are out of cash... deposit: ");
                 string Balance = Console.ReadLine();
 
                 int NewBalance = 0;
 
                 //Se om man har skrivit ett nummer mellan 1000 och 0
-                
+
                 bool IsInt = int.TryParse(Balance, out NewBalance);
-                
-                if (IsInt)
+
+                if (IsInt == true)
                 {
-                    if (NewBalance < 1001 && NewBalance > 0)
-                    {
 
-                        if (Logged == "in")
-                        {
-                            Deposit(NewBalance);
+                    Deposit(NewBalance);
 
-                            LoginClass.Redirect();
-                        }
+                    LoginClass.Redirect();
 
-                    }
                 }
                 else
                 {
                     NoCash();
                 }
+            
+
+                
             }
         }
         LoginClass.Login();
