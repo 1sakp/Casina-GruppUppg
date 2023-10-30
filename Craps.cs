@@ -94,12 +94,14 @@ namespace Casina_GruppUppg
                     else if (playAgain.ToLower() == "nej")
                     {
                         WriteLine("Tack för att du spelade. Spelet avslutas.");
+                        LoginClass.Redirect();
                         break;
                     }
 
                     else
                     {
                         WriteLine("Ogiltig inmatning. Spelet avslutas.");
+                        Main();
                         break;
                     }
                 }
@@ -124,8 +126,8 @@ namespace Casina_GruppUppg
                     }
                     if (playAgain.ToLower() == "nej")
                     {
-
                         WriteLine("Tack för att du spelade!");
+                        LoginClass.Redirect();
                         break;
                     }
 
