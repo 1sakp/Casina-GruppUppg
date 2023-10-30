@@ -12,12 +12,12 @@ namespace Casina_GruppUppg
         public static void SlotMachine()
         {
             int balance = Methods.GetBal(); // get the saved balance from the user login
-            int bet, newBalance;
+            int bet;
             int numberOfReels = 3;
 
             bool playAgain;
 
-            string? input, inputBalance;
+            string? input;
             string[] result = new string[numberOfReels];
             string[] symbols = { "!", "$", "&" };
             Random rand = new();
@@ -42,15 +42,15 @@ namespace Casina_GruppUppg
 
                 for (int i = 0; i < numberOfReels; i++)
                 {
-                    if (rand.Next(100) < 20) // 20% chance of winning
+                    if (rand.Next(100) < 25) // 25% chance of winning
                     {
                         result[i] = "!";
                     }
-                    else if (rand.Next(100) < 20) // 20% chance of winning
+                    else if (rand.Next(100) < 25) // 25% chance of winning
                     {
                         result[i] = "$";
                     }
-                    else if (rand.Next(100) < 20) // 20% chance of winning
+                    else if (rand.Next(100) < 25) // 25% chance of winning
                     {
                         result[i] = "&";
                     }
@@ -69,7 +69,7 @@ namespace Casina_GruppUppg
                 if (wins)
                 {
                     WriteLine("Congratulations! You won!");
-                    balance += (bet);
+                    balance += bet;
                     Methods.Deposit(balance);
                     WriteLine($"You won {bet} and your balance now is {balance}"); // balance + bet = the new balance
 
@@ -77,12 +77,10 @@ namespace Casina_GruppUppg
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    balance -= (bet);
+                    balance -= bet;
                     Methods.Deposit(balance);
                     WriteLine($"You lost {bet} and your balance now is {balance}"); // balance - bet = the new balance
                 }
-
-                // Methods deposit
 
                 WriteLine("Do you want to play again? y / n\n");
                 string? userInput = ReadLine();
@@ -92,20 +90,8 @@ namespace Casina_GruppUppg
                 }
                 else if(balance < 0)
                 {
-                    playAgain = false;
-                    WriteLine($"You have no money left.\n Your balance is: {balance} kr.");
- 
-                    WriteLine("You need to add some money to your balance: ");
-                    inputBalance = ReadLine();
-                    while(!int.TryParse(input, out newBalance)) // if the user inputs something that cannot be parsed to an int
-                    {
-                        WriteLine("Oh no! You need to write a number: "); // make the user input an int
-                        inputBalance = ReadLine();
-                    }
-                    int.TryParse(inputBalance, out newBalance); //Parse string input from user to int
-                    WriteLine($"New Balance: {newBalance}");
-
-                    Methods.Deposit(newBalance);
+                    Methods.Deposit(balance); // call the deposit method when user has no more cash to deposit more money
+                    playAgain = true;
                 }
                 else
                 {
