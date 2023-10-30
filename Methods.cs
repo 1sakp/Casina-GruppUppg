@@ -87,23 +87,26 @@ public class Methods
                 int NewBalance = 0;
 
                 //Se om man har skrivit ett nummer mellan 1000 och 0
-                try
+                
+                bool IsInt = int.TryParse(Balance, out NewBalance);
+                
+                if (IsInt)
                 {
-                    int.TryParse(Balance, out NewBalance);
-                }catch 
-                { 
-                    NoCash();
-                }
-                if (NewBalance < 1001 && NewBalance > 0)
-                {
-
-                    if (Logged == "in")
+                    if (NewBalance < 1001 && NewBalance > 0)
                     {
-                        Deposit(NewBalance);
 
-                        LoginClass.Redirect();
+                        if (Logged == "in")
+                        {
+                            Deposit(NewBalance);
+
+                            LoginClass.Redirect();
+                        }
+
                     }
-                    
+                }
+                else
+                {
+                    NoCash();
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Drawing;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -17,7 +18,6 @@ public class RouletteClass
 
         while (true)
         {
-
             balance = Methods.GetBal();
             WriteLine($"Your balance is: {balance}");
 
@@ -89,9 +89,7 @@ public class RouletteClass
 
             if (num < 0 || num > 36)
             {
-                WriteLine("Invalid numbers, press enter to try again");
-                ReadLine();
-                StraightBet(balance, bet);
+                throw new ArgumentException("Invalid number. Please pick a number between 0-36.");
             }
             
 
@@ -117,13 +115,19 @@ public class RouletteClass
             playOn();
         }
 
-        catch 
+        catch (ArgumentException ex)
         {
-            WriteLine("Invalid input. Please enter a valid number. \nPress enter to try again");
-            ReadLine();
-            StraightBet(balance, bet);
+            Console.Clear();
+            WriteLine($"Error: {ex.Message}");
+
         }
-        
+        catch (Exception ex)
+        {
+            Console.Clear();
+            WriteLine($"An unexpected error occurred: {ex.Message}");
+
+        }
+
 
     }
 
@@ -163,11 +167,13 @@ public class RouletteClass
 
         catch (ArgumentException ex)
         {
+            Console.Clear();
             WriteLine($"Error: {ex.Message}");
      
         }
         catch (Exception ex)
         {
+            Console.Clear();
             WriteLine($"An unexpected error occurred: {ex.Message}");
             
         }
@@ -182,90 +188,129 @@ public class RouletteClass
 
     public static void OddEvenBet(int balance, int bet)
     {
-        WriteLine("Pick either even numbers or odd numbers");
-        string oddEven = ReadLine().ToLower();
-
-        WriteLine("Spinning roulette table...");
-        Thread.Sleep(1000);        
-
-        int winNum = RandomNum();
-        WriteLine($"{winNum}");
-
-
-        int[] evenNumbers = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36 };
-        int[] oddNumbers = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35 };
-
-        if (oddEven == "even" )
+        try
         {
-            if (evenNumbers.Contains(winNum))
+            WriteLine("Pick either even numbers or odd numbers");
+            string oddEven = ReadLine().ToLower();
+
+            if (oddEven != "odd" && oddEven != "even")
             {
-                WriteLine("Congratulations You won!!");
-                balance += bet * 2;
-                Methods.Deposit(balance);
+                throw new ArgumentException("Invalid pick. Please pick either Odd or Even.");
             }
-            else
-            {
-                WriteLine("Sorry you lost...");
-                balance -= bet;
-                Methods.Deposit(balance);
-            }
-        }
-        else if (oddEven == "odd")
-        {
-            if (oddNumbers.Contains(winNum))
-            {
-                WriteLine("Congratulations You won!!");
-                balance += bet * 2;
-                Methods.Deposit(balance);
-            }
-            else
-            {
-                WriteLine("Sorry you lost...");
-                balance -= bet;
-                Methods.Deposit(balance);
-            }
-        }
-        else
-        {
-            Console.WriteLine("gg");
-        }
+
+            WriteLine("Spinning roulette table...");
+            Thread.Sleep(1000);
+
+            int winNum = RandomNum();
+            WriteLine($"{winNum}");
 
 
-        playOn();
+            int[] evenNumbers = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36 };
+            int[] oddNumbers = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35 };
+
+            if (oddEven == "even")
+            {
+                if (evenNumbers.Contains(winNum))
+                {
+                    WriteLine("Congratulations You won!!");
+                    balance += bet * 2;
+                    Methods.Deposit(balance);
+                }
+                else
+                {
+                    WriteLine("Sorry you lost...");
+                    balance -= bet;
+                    Methods.Deposit(balance);
+                }
+            }
+            else if (oddEven == "odd")
+            {
+                if (oddNumbers.Contains(winNum))
+                {
+                    WriteLine("Congratulations You won!!");
+                    balance += bet * 2;
+                    Methods.Deposit(balance);
+                }
+                else
+                {
+                    WriteLine("Sorry you lost...");
+                    balance -= bet;
+                    Methods.Deposit(balance);
+                }
+            }
+            
+
+            playOn();
+        }
+        catch (ArgumentException ex)
+        {
+            Console.Clear();
+            WriteLine($"Error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.Clear();
+            WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
     }
 
     public static void LowHighBet(int balance, int bet)
     {
-        WriteLine("Type low for 0-18 \nType high for 19-36");
-        string range = ReadLine().ToLower();
-
-        WriteLine("Spinning roulette table...");
-        Thread.Sleep(1000);
-
-        int winNum = RandomNum();
-        WriteLine($"{winNum}");
-
-        bool isWinningRange = (winNum >= 0 && winNum <= 18 && range == "low") ||
-                              (winNum >= 19 && winNum <= 36 && range == "high");
-
-        if (isWinningRange)
+        try
         {
-            WriteLine("Congratulations you won!!");
-            balance += bet * 2;
-            Methods.Deposit(balance);
-        }
-        else
-        {
-            WriteLine("Sorry you lost...");
-            balance -= bet;
-            Methods.Deposit(balance);
-        }
+            WriteLine("Type low for 0-18 \nType high for 19-36");
+            string range = ReadLine().ToLower();
 
-        playOn();
+            if (range != "high" && range != "low")
+            {
+                throw new ArgumentException("Invalid pick. Please pick either High or Low.");
+            }
+
+            WriteLine("Spinning roulette table...");
+            Thread.Sleep(1000);
+
+            int winNum = RandomNum();
+            WriteLine($"{winNum}");
+
+            bool isWinningRange = (winNum >= 0 && winNum <= 18 && range == "low") ||
+                                  (winNum >= 19 && winNum <= 36 && range == "high");
+
+            if (isWinningRange)
+            {
+                WriteLine("Congratulations you won!!");
+                balance += bet * 2;
+                Methods.Deposit(balance);
+            }
+            else
+            {
+                WriteLine("Sorry you lost...");
+                balance -= bet;
+                Methods.Deposit(balance);
+            }
+
+            playOn();
+        }
+        catch (ArgumentException ex)
+        {
+            Console.Clear();
+            WriteLine($"Error: {ex.Message}");
+
+        }
+        catch (Exception ex)
+        {
+            Console.Clear();
+            WriteLine($"An unexpected error occurred: {ex.Message}");
+
+        }
     }
 
     public static void playOn()
     {
+        if (Methods.GetBal() == 0)
+        {
+            Methods.NoCash();
+        }
+
         WriteLine("1. To play again \n2. To play another game");
         int playOn = Convert.ToInt32(ReadLine());
 
