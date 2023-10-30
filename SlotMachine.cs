@@ -17,7 +17,7 @@ namespace Casina_GruppUppg
 
             bool playAgain;
 
-            string? input;
+            string? input, inputBalance;
             string[] result = new string[numberOfReels];
             string[] symbols = { "!", "$", "&" };
             Random rand = new();
@@ -69,17 +69,17 @@ namespace Casina_GruppUppg
                 if (wins)
                 {
                     WriteLine("Congratulations! You won!");
-                    balance += (bet * 2);
+                    balance += (bet);
                     Methods.Deposit(balance);
-                    WriteLine($"You won {bet * 2} and your balance now is {balance}"); // balance + (bet x 2) = new balance
+                    WriteLine($"You won {bet} and your balance now is {balance}"); // balance + bet = the new balance
 
                 }
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    balance -= (bet * 2);
+                    balance -= (bet);
                     Methods.Deposit(balance);
-                    WriteLine($"You lost {bet * 2} and your balance now is {balance}"); // balance - (bet x 2) = new balance
+                    WriteLine($"You lost {bet} and your balance now is {balance}"); // balance - bet = the new balance
                 }
 
                 // Methods deposit
@@ -94,9 +94,18 @@ namespace Casina_GruppUppg
                 {
                     playAgain = false;
                     WriteLine($"You have no money left.\n Your balance is: {balance} kr.");
-                    //Methods.Deposit(newBalance);
-                    //WriteLine("You need to add some money to your balance: ");
-                    //ReadLine(newBalance);
+ 
+                    WriteLine("You need to add some money to your balance: ");
+                    inputBalance = ReadLine();
+                    while(!int.TryParse(input, out newBalance)) // if the user inputs something that cannot be parsed to an int
+                    {
+                        WriteLine("Oh no! You need to write a number: "); // make the user input an int
+                        inputBalance = ReadLine();
+                    }
+                    int.TryParse(inputBalance, out newBalance); //Parse string input from user to int
+                    WriteLine($"New Balance: {newBalance}");
+
+                    Methods.Deposit(newBalance);
                 }
                 else
                 {
