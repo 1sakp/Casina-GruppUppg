@@ -2,5 +2,5 @@ Isak!Palssn!5!out
 Isak!Palson!5!out
 iska!pal!800!out
 iska!pal!1000!out
-dd!dd!50!out
-una!12345!530!in
+una!12345!530!out
+dd!dd!-54!out
