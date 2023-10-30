@@ -7,6 +7,8 @@ public static class LoginClass
 {
     public static void Login()
     {
+        Console.Clear();
+
         //Här väljer man om man ska logga in eller registrera sig
         Console.WriteLine("If you already have an account, Please write 'login'! To sign up write 'Sign up'!");
         string choise = Console.ReadLine();
