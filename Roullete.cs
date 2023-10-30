@@ -36,7 +36,7 @@ public class RouletteClass
                 }
                 else
                 {
-                    WriteLine("You cannot bet zero. Enter another bet: ");
+                    WriteLine("You cannot bet zero or below. Enter another bet: ");
                 }
 
                 bet = Convert.ToInt32(Console.ReadLine());
