@@ -23,7 +23,13 @@ namespace Casina_GruppUppg
                 balance = Methods.GetBal();
                 WriteLine($"Du har {balance}");
 
-                WriteLine("Tryck på Enter för att kasta tärningarna...");
+                    if (balance == 0 || balance < 0)
+                    {
+                        Methods.NoCash();
+                    }
+                    
+
+                    WriteLine("Tryck på Enter för att kasta tärningarna...");
                 ReadLine();
 
                 int dice1 = random.Next(1, 7);  // Slumpmässigt kast av tärning 1 (1-6).
