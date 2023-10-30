@@ -81,15 +81,14 @@ public class Methods
             string Logged = splittemp[3];
             string bal = splittemp[2];
 
+            //den inloggade användaren
             if (Logged == "in")
             {
+                //ka ha problem med overflow av int men borde fungera
                 Console.WriteLine("You are out of cash... deposit: ");
                 string Balance = Console.ReadLine();
 
                 int NewBalance = 0;
-
-                //Se om man har skrivit ett nummer mellan 1000 och 0
-
                 bool IsInt = int.TryParse(Balance, out NewBalance);
 
                 if (IsInt == true)
@@ -126,6 +125,11 @@ public class Methods
             //om infon är korrekt så loggas man in
             if (Logged == "in")
             {
+                if (NewBalance > 2147483647)
+                {
+                    NewBalance = 2147483647;
+                }
+
                 //https://stackoverflow.com/questions/10753160/how-exactly-to-use-array-where
                 //hittar var allt i array som inte är nuvarande användare och gör dem till en ny array, på så sätt
                 //tar dem bort nuvarande användaren.
