@@ -306,6 +306,11 @@ public class RouletteClass
 
     public static void playOn()
     {
+        if (Methods.GetBal() == 0)
+        {
+            Methods.NoCash();
+        }
+
         WriteLine("1. To play again \n2. To play another game");
         int playOn = Convert.ToInt32(ReadLine());
 
