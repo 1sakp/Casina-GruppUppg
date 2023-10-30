@@ -27,13 +27,13 @@ namespace Casina_GruppUppg
             do
             {
                 WriteLine("Place your bet: ");
-                input = ReadLine(); //Parse string input from user to int
-                while (!int.TryParse(input, out bet))
+                input = ReadLine();
+                while (!int.TryParse(input, out bet)) // if the user inputs something that cannot be parsed to an int
                 {
-                    WriteLine("Oh no! You need to write a number: ");
+                    WriteLine("Oh no! You need to write a number: "); // make the user input an int
                     input = ReadLine();
                 }
-                int.TryParse(input, out bet);
+                int.TryParse(input, out bet); //Parse string input from user to int
                 WriteLine($"You bet: {bet}");
 
                 WriteLine("Ready to play? Press enter to spin...");
@@ -60,17 +60,17 @@ namespace Casina_GruppUppg
                 }
 
                 WriteLine("The wheel is spinning...");
-                Thread.Sleep(2000); // sleep for 2 sek to build suspension
-                WriteLine(string.Join(" | ", result));
+                Thread.Sleep(1000); // sleep for 1 sek to build suspension
+                WriteLine(string.Join(" | ", result)); // make the display more readable with | inbetween the symbols
 
-                int wins = WinInSomeCases(result);
+                bool wins = WinInSomeCases(result); // call the WinInSomeCases function to check if it's a match for winning combo
 
-                if (wins > 0)
+                if (wins)
                 {
                     WriteLine("Congratulations! You won!");
                     balance += (bet * 2);
                     Methods.Deposit(balance);
-                    WriteLine($"You won {bet * 2} and your balance now is {balance}");
+                    WriteLine($"You won {bet * 2} and your balance now is {balance}"); // balance + (bet x 2) = new balance
 
                 }
                 else
@@ -78,43 +78,45 @@ namespace Casina_GruppUppg
                     WriteLine("Oh no! You lost!");
                     balance -= (bet * 2);
                     Methods.Deposit(balance);
-                    WriteLine($"You lost {bet * 2} and your balance now is {balance}");
+                    WriteLine($"You lost {bet * 2} and your balance now is {balance}"); // balance - (bet x 2) = new balance
                 }
 
                 WriteLine("Do you want to play again? y / n");
                 string? userInput = ReadLine();
                 if (userInput == "Y" || userInput == "y")
                 {
-                    playAgain = true;
+                    playAgain = true; // the user plays again
                 }
                 else
                 {
-                    playAgain = false;
-                    // go back to main menu to chose another game or quit
+                    playAgain = false; // the user is directed back to main menu to chose another game or quit
                 }
-            } while (playAgain == true && balance > 0);
+            } while (playAgain == true && balance > 0); // play again and user needs also have some balance left
 
-            static int WinInSomeCases(string[] result)
+            static bool WinInSomeCases(string[] result)
             {
                 string[][] winningCombinations = {
-                new string[] { "!", "!", "!" },
-                new string[] { "$", "$", "$" },
-                new string[] { "&", "&", "&" },
+                new string[] { "!", "!", "!" }, // winning combo = ! | ! | !
+                new string[] { "$", "$", "$" }, // winning combo = $ | $ | $
+                new string[] { "&", "&", "&" }, // winning combo = & | & | &
             };
-                // doesn't read the winning here, fix or take out of the function
-                int[] winnings = { 10, 50, 100 };
-
-                for (int i = 0; i < winningCombinations.Length; i++)
+                foreach (var combination in winningCombinations)
                 {
-                    if (result[0] == winningCombinations[i][0] &&
-                        result[1] == winningCombinations[i][1] &&
-                        result[2] == winningCombinations[i][2])
+                    bool isWinningCombination = true;
+                    for (int i = 0; i < result.Length; i++)
                     {
-                        return winnings[i];
+                        if (result[i] != combination[0])
+                        {
+                            isWinningCombination = false; // there wasn't a winning combo
+                            break;
+                        }
+                    }
+                    if (isWinningCombination)
+                    {
+                        return true; // there was a winning combo
                     }
                 }
-                // If the player lost, return
-                return 0;
+                return false; // no winning combo
             }
         }
     }
