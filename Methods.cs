@@ -84,18 +84,26 @@ public class Methods
                 Console.WriteLine("You are out of cash... deposit up to 1000!");
                 string Balance = Console.ReadLine();
 
-                //https://stackoverflow.com/questions/19592084/why-do-all-tryparse-overloads-have-an-out-parameter
-                int NewBalance;
-                bool isint = int.TryParse(Balance, out NewBalance);
+                int NewBalance = 0;
 
-                if (isint == true)
+                //Se om man har skrivit ett nummer mellan 1000 och 0
+                try
                 {
+                    int.TryParse(Balance, out NewBalance);
+                }catch 
+                { 
+                    NoCash();
+                }
+                if (NewBalance < 1001 && NewBalance > 0)
+                {
+
                     if (Logged == "in")
                     {
                         Deposit(NewBalance);
 
                         LoginClass.Redirect();
                     }
+                    
                 }
             }
         }

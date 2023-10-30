@@ -108,7 +108,8 @@ namespace Casina_GruppUppg
                 else
                 {
                     playAgain = false;
-                    balance = new Deposit();
+                    Methods.Deposit(balance);
+                    balance = Methods.GetBal();
                     WriteLine($"Welcome back! Your balance is now: {balance}");
 
                     // go out of game with balance saved

@@ -97,6 +97,8 @@ public static class LoginClass
     }
     public static void Redirect()
     {
+        Console.Clear();
+
         //om spelaren har 0 pengar då får hen lägga till mer
         if (Methods.GetBal() == 0)
         {
@@ -119,6 +121,10 @@ public static class LoginClass
                 Console.Clear();
                 SlotMachineClass.SlotMachine();
                 break;
+            default:
+                Redirect();
+                break;
+
         }
     }
 }
