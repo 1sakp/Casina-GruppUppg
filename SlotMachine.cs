@@ -12,17 +12,13 @@ namespace Casina_GruppUppg
         public static void SlotMachine()
         {
             int balance = Methods.GetBal();
-            //GetBal() - put in method to read the login user balance
-            // bal - read the balance
             int bet;
-            int winnings;
             int numberOfReels = 3;
 
             bool playAgain;
 
             string? input;
             string[] result = new string[numberOfReels];
-            // symbols - add more later?
             string[] symbols = { "!", "$", "&" };
             Random rand = new();
 
@@ -31,16 +27,13 @@ namespace Casina_GruppUppg
             do
             {
                 WriteLine("Place your bet: ");
-
-                //Parse string input from user to int
                 input = ReadLine();
-                while (!int.TryParse(input, out bet))
+                while (!int.TryParse(input, out bet)) // if the user inputs something that cannot be parsed to an int
                 {
-                    WriteLine("Oh no! Something went horribly wrong!");
+                    WriteLine("Oh no! You need to write a number: "); // make the user input an int
                     input = ReadLine();
-                    // forever loop, needs fixing!
                 }
-                int.TryParse(input, out bet);
+                int.TryParse(input, out bet); //Parse string input from user to int
                 WriteLine($"You bet: {bet}");
 
                 WriteLine("Ready to play? Press enter to spin...");
@@ -67,77 +60,63 @@ namespace Casina_GruppUppg
                 }
 
                 WriteLine("The wheel is spinning...");
-                // sleep for 2 sek to build suspension
-                //Thread.Sleep(2000);
-                WriteLine(string.Join(" | ", result));
+                Thread.Sleep(1000); // sleep for 1 sek to build suspension
+                WriteLine(string.Join(" | ", result)); // make the display more readable with | inbetween the symbols
 
-                int wins = WinInSomeCases(result);
+                bool wins = WinInSomeCases(result); // call the WinInSomeCases function to check if it's a match for winning combo
 
-                if (wins > 0)
+                if (wins)
                 {
                     WriteLine("Congratulations! You won!");
-                    //winnings = 20;
-                    //int newBalanceWin = balance + winnings - bet;
-                    //balance = balance + winnings - bet;
-                    
-                    //Methods.Deposit(balance + 100);
-                    //WriteLine($"You won 100 and your balance now is {balance}");
+                    balance += (bet * 2);
+                    Methods.Deposit(balance);
+                    WriteLine($"You won {bet * 2} and your balance now is {balance}"); // balance + (bet x 2) = new balance
 
                 }
                 else
                 {
                     WriteLine("Oh no! You lost!");
-                    //balance = balance - bet;
-                    //WriteLine($"You lost {bet} and your balance now is {balance}");
-                    //Methods.Deposit(balance + 100);
+                    balance -= (bet * 2);
+                    Methods.Deposit(balance);
+                    WriteLine($"You lost {bet * 2} and your balance now is {balance}"); // balance - (bet x 2) = new balance
                 }
-
-                // Send a message to user when he has no balance left and kick him out of the game - not working
-                //if (balance <= 0)
-                //{
-                //    WriteLine("You are a pennyless chap, get out!");
-                //    return;
-                //}
 
                 WriteLine("Do you want to play again? y / n");
                 string? userInput = ReadLine();
                 if (userInput == "Y" || userInput == "y")
                 {
-                    playAgain = true;
+                    playAgain = true; // the user plays again
                 }
                 else
                 {
-                    playAgain = false;
-                    Methods.Deposit(balance);
-                    balance = Methods.GetBal();
-                    WriteLine($"Welcome back! Your balance is now: {balance}");
-
-                    // go out of game with balance saved
-                    // Deposit()
+                    playAgain = false; // the user is directed back to main menu to chose another game or quit
                 }
-            } while (playAgain == true && balance > 0);
+            } while (playAgain == true && balance > 0); // play again and user needs also have some balance left
 
-            static int WinInSomeCases(string[] result)
+            static bool WinInSomeCases(string[] result)
             {
                 string[][] winningCombinations = {
-                new string[] { "!", "!", "!" },
-                new string[] { "$", "$", "$" },
-                new string[] { "&", "&", "&" },
+                new string[] { "!", "!", "!" }, // winning combo = ! | ! | !
+                new string[] { "$", "$", "$" }, // winning combo = $ | $ | $
+                new string[] { "&", "&", "&" }, // winning combo = & | & | &
             };
-                // doesn't read the winning here, fix or take out of the function
-                int[] winnings = { 10, 50, 100 };
-
-                for (int i = 0; i < winningCombinations.Length; i++)
+                foreach (var combination in winningCombinations)
                 {
-                    if (result[0] == winningCombinations[i][0] &&
-                        result[1] == winningCombinations[i][1] &&
-                        result[2] == winningCombinations[i][2])
+                    bool isWinningCombination = true;
+                    for (int i = 0; i < result.Length; i++)
                     {
-                        return winnings[i];
+                        if (result[i] != combination[0])
+                        {
+                            isWinningCombination = false; // there wasn't a winning combo
+                            break;
+                        }
+                    }
+                    if (isWinningCombination)
+                    {
+                        return true; // there was a winning combo
                     }
                 }
-                // If the player lost, return
-                return 0;
+                return false; // no winning combo
             }
         }
     }
