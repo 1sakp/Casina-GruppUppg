@@ -9,6 +9,7 @@ public class Methods
 {
     public static void Start()
     {
+        //sätt in alla användare i en string array
         string[] users = File.ReadAllLines(FullPath());
 
         //Se vilken användare som är inloggad
@@ -48,7 +49,6 @@ public class Methods
 
     public static int GetBal()
     {
-        /*ÄNDRA DETTA SEN TILL 0*/
         int bal = 0;
 
         //Gör en string array av alla rader d.v.s personer i txt documentet
