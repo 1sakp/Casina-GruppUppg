@@ -31,14 +31,15 @@ namespace Casina_GruppUppg
                 int sum = dice1 + dice2;  // Beräknar summan av de två tärningskasten.
 
                 WriteLine($"Du kastade {dice1} och {dice2} - Summa: {sum}");
-
+                
                 if (point == 0)
                 {
                     if (sum == 7 || sum == 11)
                     {
                         WriteLine("Du har vunnit!");
                         hasWon = true;  // Om summan är 7 eller 11, har spelaren vunnit.
-                        Methods.Deposit(balance + 100); // Vinsten läggs till
+                        balance += 100;
+                        Methods.Deposit(balance); // Vinsten läggs till
                         WriteLine($"Du har {balance}");
 
                     }
@@ -46,14 +47,15 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har förlorat!");
                         hasWon = false;  // Om summan är 2, 3 eller 12, har spelaren förlorat.
-                        Methods.Deposit(balance - 50); // Förlusten dras av 
+                        balance -= 50; 
+                        Methods.Deposit(balance); // Förlusten dras av 
                         WriteLine($"Du har {balance}");
 
                     }
                     else
                     {
                         point = sum;  // Om summan inte är 7, 11, 2 eller 3, sätter vi "point" till summan.
-                        WriteLine($"Poäng satt till {point}");
+                        WriteLine($"Poäng satt till {point}");;
                     }
                 }
                 else
@@ -62,7 +64,8 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har vunnit!");
                         hasWon = true;  // Om summan är samma som "point," har spelaren vunnit.
-                        Methods.Deposit(balance + 100); // Vinsten läggs till
+                        balance += 100;
+                        Methods.Deposit(balance); // Vinsten läggs till
                         WriteLine($"Du har {balance}");
 
                     }
@@ -70,7 +73,8 @@ namespace Casina_GruppUppg
                     {
                         WriteLine("Du har förlorat!");
                         hasWon = false;  // Om summan är 7, har spelaren förlorat.
-                        Methods.Deposit(balance - 50); // Förlusten dras av
+                        balance -= 50;
+                        Methods.Deposit(balance); // Förlusten dras av
                         WriteLine($"Du har {balance}");
 
                     }
@@ -90,10 +94,22 @@ namespace Casina_GruppUppg
                 }
                 else
                 {
-                    WriteLine("Försök igen. Tryck på Enter för att kasta tärningarna...");
-                    ReadLine();
-                    Methods.Deposit(balance - 50);
+                    balance -= 50;
+                    Methods.Deposit(balance);
                     WriteLine($"Du har {balance}");
+
+
+                    WriteLine("otur! Vill du spela igen? (Ja/Nej)");
+                    string playAgain = ReadLine();
+                    Console.Clear();
+                    if (playAgain.ToLower() != "ja") {  // för att konvertera inmatningen i variabeln playAgain till små bokstäver.
+                        Main();  // Om spelaren har vunnit och inte vill spela igen, bryter vi loopen.
+                        point = 0;
+                    } else
+                    {
+                        point = 0;  // Återställer "point" och "hasWon" om spelaren vill spela igen.
+                        hasWon = false;
+                    }
                 }
             }
         }
