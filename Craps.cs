@@ -94,7 +94,7 @@ namespace Casina_GruppUppg
                     else if (playAgain.ToLower() == "nej")
                     {
                         WriteLine("Tack för att du spelade. Spelet avslutas.");
-                       
+                        LoginClass.Redirect();
                         break;
                     }
 
