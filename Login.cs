@@ -102,7 +102,7 @@ public static class LoginClass
         Console.Clear();
 
         //om spelaren har 0 pengar då får hen lägga till mer
-        if (Methods.GetBal() == 0)
+        if (Methods.GetBal() <= 0)
         {
             Methods.NoCash();
         }
