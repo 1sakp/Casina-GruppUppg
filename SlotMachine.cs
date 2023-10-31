@@ -59,19 +59,19 @@ namespace Casina_GruppUppg
                 {
                     if (rand.Next(100) < 25) // 25% chance of winning
                     {
-                        result[i] = "!";
+                        result[i] = "!"; // outcome: !!!
                     }
                     else if (rand.Next(100) < 25) // 25% chance of winning
                     {
-                        result[i] = "$";
+                        result[i] = "$"; // outcome: $$$
                     }
                     else if (rand.Next(100) < 25) // 25% chance of winning
                     {
-                        result[i] = "&";
+                        result[i] = "&"; // outcome: &&&
                     }
                     else
                     {
-                        result[i] = symbols[rand.Next(symbols.Length)];
+                        result[i] = symbols[rand.Next(symbols.Length)]; // no winning combo
                     }
                 }
 
