@@ -11,8 +11,8 @@ namespace Casina_GruppUppg
     {
         static public void Main()
         {
-            int balance = Methods.GetBal();
-            Random random = new Random();
+            int balance = Methods.GetBal();// Här deklarerars variabelns balance och tilldelar den värdet som returneras av Methods.GetBal()-funktionen. Används för att hämta och lagra spelarens saldo.
+            Random random = new Random();//Detta används senare för att generera slumpmässiga tärningskast.
             int point = 0;   // Här lagrar vi "point," som används för att avgöra om spelaren vinner på efterföljande kast.
             bool hasWon = false;  // En variabel för att hålla reda på om spelaren har vunnit.
 
@@ -20,16 +20,16 @@ namespace Casina_GruppUppg
 
             while (true)  // Huvudspelloopen som gör att spelet fortsätter tills spelaren väljer att sluta.
             {
-                balance = Methods.GetBal();
+                balance = Methods.GetBal(); //: Uppdaterar saldo (balance) genom att anropa Methods.GetBal(). Detta hjälper till att hålla saldo aktuell
                 WriteLine($"Du har {balance}");
 
-                    if (balance == 0 || balance < 0)
-                    {
+                    if (balance == 0 || balance < 0) //Om saldot är 0 eller negativt, anropas Methods.NoCash() för att meddela spelaren om brist på medel och därmed avslutar spelet.
+                {
                         Methods.NoCash();
                     }
                     
 
-                    WriteLine("Tryck på Enter för att kasta tärningarna...");
+                WriteLine("Tryck på Enter för att kasta tärningarna...");
                 ReadLine();
 
                 int dice1 = random.Next(1, 7);  // Slumpmässigt kast av tärning 1 (1-6).
@@ -38,7 +38,7 @@ namespace Casina_GruppUppg
 
                 WriteLine($"Du kastade {dice1} och {dice2} - Summa: {sum}");
 
-                if (point == 0)// Första tärningskastet
+                if (point == 0)//  Här kontrollerars om point är 0, vilket indikerar att det är det första tärningskastet. Om det är det första kastet, utförs följande kontroller:
                 {
                     if (sum == 7 || sum == 11)
                     {
