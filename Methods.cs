@@ -24,16 +24,16 @@ public class Methods
             //om infon är korrekt så loggas man in
             if (Logged == "in")
             {
-                // Create a new list to store modified users
+                //Skapar ny lista av uppdaterade användare
                 var updatedUsers = users.ToList();
 
-                // Update the status to "out"
+                //Gör så att programmet kan se vem som är inloggad
                 string updatedUser = user.Replace("!in", "!out");
 
-                // Replace the old user entry with the updated one
+                //Byt den gamla användaren mot den nya
                 updatedUsers[Array.IndexOf(users, user)] = updatedUser;
 
-                // Write the updated users back to the file
+                //Overwrite hela filen med dem ny användarna
                 File.WriteAllLines(FullPath(), updatedUsers);
 
                 LoginClass.Login();
@@ -109,7 +109,6 @@ public class Methods
                 
             }
         }
-        LoginClass.Login();
     }
     public static void Deposit(int NewBalance)
     {
