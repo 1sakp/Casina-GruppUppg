@@ -7,6 +7,7 @@ public static class LoginClass
 {
     public static void Login()
     {
+
         Console.Clear();
 
         //Här väljer man om man ska logga in eller registrera sig
