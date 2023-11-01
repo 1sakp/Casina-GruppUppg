@@ -328,11 +328,6 @@ public class RouletteClass
         {
             Console.Clear();
             LoginClass.Redirect();
-
         }
     }
-
-
-
 }
-
